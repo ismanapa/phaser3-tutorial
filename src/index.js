@@ -21,7 +21,7 @@ const config = {
 
 const game = new Phaser.Game(config);
 
-function preload () {
+function preload() {
     this.load.image(assets.sky, 'assets/sky.png');
     this.load.image(assets.ground, 'assets/platform.png');
     this.load.image(assets.star, 'assets/star.png');
@@ -37,10 +37,11 @@ function preload () {
 }
 
 var platforms;
+var player;
 
-function create () {
+function create() {
     this.add.image(400, 300, assets.sky);
-    
+
     platforms = this.physics.add.staticGroup();
 
     platforms.create(400, 560, assets.ground).setScale(2).refreshBody();
@@ -48,8 +49,33 @@ function create () {
     platforms.create(600, 400, assets.ground);
     platforms.create(50, 250, assets.ground);
     platforms.create(750, 220, assets.ground);
+
+    player = this.physics.add.sprite(100, 450, assets.dude);
+
+    player.setBounce(0.2);
+    player.setCollideWorldBounds(true);
+
+    this.anims.create({
+        key: 'left',
+        frames: this.anims.generateFrameNumbers(assets.dude, { start: 0, end: 3 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
+    this.anims.create({
+        key: 'turn',
+        frames: [{ key: assets.dude, frame: 4 }],
+        frameRate: 20
+    });
+
+    this.anims.create({
+        key: 'right',
+        frames: this.anims.generateFrameNumbers(assets.dude, { start: 5, end: 8 }),
+        frameRate: 10,
+        repeat: -1
+    });
 }
 
-function update () {
+function update() {
 
 }
