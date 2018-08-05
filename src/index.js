@@ -1,34 +1,39 @@
 import 'phaser';
+import { assets } from './constants';
 
-var config = {
+const config = {
     type: Phaser.AUTO,
-    parent: 'phaser-example',
     width: 800,
     height: 600,
     scene: {
         preload: preload,
-        create: create
+        create: create,
+        update: update
     }
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
-function preload ()
-{
-    this.load.image('logo', 'assets/logo.png');
+function preload () {
+    this.load.image(assets.sky, 'assets/sky.png');
+    this.load.image(assets.ground, 'assets/platform.png');
+    this.load.image(assets.star, 'assets/star.png');
+    this.load.image(assets.bomb, 'assets/bomb.png');
+    this.load.spritesheet(
+        assets.dude,
+        'assets/dude.png',
+        {
+            frameWidth: 32,
+            frameHeight: 48
+        }
+    );
 }
 
-function create ()
-{
-    var logo = this.add.image(400, 150, 'logo');
+function create () {
+    this.add.image(400, 300, assets.sky);
+    this.add.image(400, 300, assets.dude);
+}
 
-    this.tweens.add({
-        targets: logo,
-        y: 450,
-        duration: 2000,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1
-    });
+function update () {
 
 }
